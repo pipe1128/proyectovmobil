@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "573217515244"; // Reemplaza por el número real de la tienda, con indicativo y solo dígitos.
+const WHATSAPP_NUMBER = "573015379982"; // Reemplaza por el número real de la tienda, con indicativo y solo dígitos.
 
 const products = [
   {
