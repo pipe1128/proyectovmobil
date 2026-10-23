@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Encuentra tu próximo celular en V'Mobil. Tecnología, buenos precios y atención cercana."
+    />
+    <meta name="theme-color" content="#f5f6f8" />
+    <title>V'Mobil | Tecnología que te conecta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#inicio" aria-label="V'Mobil, ir al inicio">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span>V'<span class="brand-light">Mobil</span></span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="mainNav"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav" aria-label="Navegación principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#catalogo">Catálogo</a>
+          <a href="#ubicacion">Ubicación y horarios</a>
+          <button class="nav-cart" id="openCartButton" type="button">
+            Carrito <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-wrap" id="inicio">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="status-dot"></span> TU PRÓXIMA CONEXIÓN</span>
+          <h1>La tecnología<br />que va <span>contigo.</span></h1>
+          <p>
+            Encuentra el celular ideal para tu ritmo. Grandes marcas, asesoría cercana y
+            opciones para todos.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#catalogo">
+              Explorar catálogo <span aria-hidden="true">↗</span>
+            </a>
+            <a class="hero-link" href="#ubicacion">Conoce nuestra tienda <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="hero-note">
+            <span class="hero-note-icon" aria-hidden="true">✓</span>
+            <span>Equipos seleccionados. Atención de verdad.</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img
+            src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=85"
+            alt="Teléfono inteligente moderno sobre un fondo oscuro"
+          />
+          <div class="hero-image-shade"></div>
+          <div class="hero-caption">
+            <span>TECNOLOGÍA PARA TU DÍA A DÍA</span>
+            <span class="caption-line"></span>
+          </div>
+          <div class="floating-badge">
+            <span class="badge-icon" aria-hidden="true">✦</span>
+            <span><strong>Tu mejor elección</strong><small>está más cerca</small></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog section-wrap" id="catalogo">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">SELECCIÓN V'MOBIL</span>
+            <h2>Encuentra tu próximo celular</h2>
+            <p>Equipos que combinan rendimiento, diseño y un precio que te gusta.</p>
+          </div>
+          <span class="catalog-total">04 MODELOS</span>
+        </div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="store-section" id="ubicacion">
+        <div class="section-wrap store-layout">
+          <div class="store-copy">
+            <span class="eyebrow">VEN A CONOCERNOS</span>
+            <h2>Estamos más cerca<br />de lo que imaginas.</h2>
+            <p>
+              Pasa por nuestra tienda, conoce los equipos y recibe asesoría para encontrar
+              el que va contigo.
+            </p>
+            <a
+              class="button button-light"
+              href="https://maps.google.com/?q=V%27Mobil+Colombia"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Cómo llegar <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div class="store-details">
+            <article class="detail-card">
+              <span class="detail-icon" aria-hidden="true">⌖</span>
+              <div>
+                <span class="detail-label">ENCUÉNTRANOS</span>
+                <h3>Visítanos en la tienda</h3>
+                <p>Dirección por confirmar, Colombia</p>
+              </div>
+            </article>
+            <article class="detail-card">
+              <span class="detail-icon" aria-hidden="true">◷</span>
+              <div>
+                <span class="detail-label">HORARIO DE ATENCIÓN</span>
+                <h3>Te esperamos</h3>
+                <p>Lunes a sábado · 9:00 a. m. – 7:00 p. m.</p>
+                <p>Domingos y festivos · 10:00 a. m. – 3:00 p. m.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-wrap footer-inner">
+        <a class="brand footer-brand" href="#inicio">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span>V'<span class="brand-light">Mobil</span></span>
+        </a>
+        <p>Tecnología que te conecta.</p>
+        <span>© <span id="currentYear"></span> V'Mobil. Hecho para estar conectados.</span>
+      </div>
+    </footer>
+
+    <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+    <aside
+      class="cart-drawer"
+      id="cartDrawer"
+      aria-labelledby="cartTitle"
+      aria-hidden="true"
+      inert
+    >
+      <div class="drawer-header">
+        <div>
+          <span class="eyebrow">TU SELECCIÓN</span>
+          <h2 id="cartTitle">Tu carrito <span id="drawerCartCount">(0)</span></h2>
+        </div>
+        <button class="icon-button" id="closeCartButton" type="button" aria-label="Cerrar carrito">×</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-empty" id="cartEmpty">
+        <span class="empty-icon" aria-hidden="true">▱</span>
+        <h3>Tu carrito está esperando</h3>
+        <p>Agrega un equipo del catálogo para comenzar.</p>
+        <button class="text-button" id="continueShoppingButton" type="button">Ver catálogo →</button>
+      </div>
+      <div class="cart-footer" id="cartFooter" hidden>
+        <div class="subtotal-row"><span>Subtotal</span><strong id="cartSubtotal"></strong></div>
+        <p class="cart-hint">El costo final se confirma antes de enviar tu pedido.</p>
+        <button class="button button-primary checkout-button" id="checkoutButton" type="button">
+          Finalizar pedido <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </aside>
+
+    <dialog class="checkout-dialog" id="checkoutDialog" aria-labelledby="checkoutTitle">
+      <div class="dialog-header">
+        <div>
+          <span class="eyebrow">UN ÚLTIMO PASO</span>
+          <h2 id="checkoutTitle">Finaliza tu pedido</h2>
+        </div>
+        <button class="icon-button" id="closeCheckoutButton" type="button" aria-label="Cerrar formulario">×</button>
+      </div>
+      <form id="checkoutForm">
+        <div class="form-fields">
+          <label>
+            Nombre completo
+            <input name="customerName" type="text" autocomplete="name" placeholder="¿Cómo te llamas?" required />
+          </label>
+          <label>
+            Dirección de entrega
+            <input name="address" type="text" autocomplete="street-address" placeholder="Calle, carrera, ciudad" required />
+          </label>
+          <label>
+            Teléfono
+            <input
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="300 123 4567"
+              pattern="[0-9+\\(\\) .\\-]{7,20}"
+              title="Ingresa un teléfono válido."
+              required
+            />
+          </label>
+          <label>
+            Método de pago
+            <select name="paymentMethod" id="paymentMethod" required>
+              <option value="Nequi">Nequi</option>
+              <option value="Tarjeta débito Bancolombia">Tarjeta Débito Bancolombia</option>
+              <option value="Tarjeta de crédito">Tarjeta de Crédito</option>
+            </select>
+          </label>
+        </div>
+        <div class="order-summary">
+          <div class="summary-row"><span>Subtotal</span><strong id="summarySubtotal"></strong></div>
+          <div class="summary-row fee-row" id="creditFeeRow" hidden>
+            <span>Recargo tarjeta de crédito (5%)</span><strong id="creditFee"></strong>
+          </div>
+          <div class="summary-row total-row"><span>Total a pagar</span><strong id="orderTotal"></strong></div>
+          <p class="fee-notice" id="creditFeeNotice" hidden>
+            El recargo del 5% aplica a compras con tarjeta de crédito superiores a $100.000 COP.
+          </p>
+        </div>
+        <button class="button button-primary submit-order" type="submit">
+          Confirmar por WhatsApp <span aria-hidden="true">↗</span>
+        </button>
+        <p class="secure-note">Al confirmar, abriremos WhatsApp con el detalle de tu pedido.</p>
+      </form>
+    </dialog>
+  </body>
+</html>
