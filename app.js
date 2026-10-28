@@ -66,6 +66,8 @@ const currency = new Intl.NumberFormat("es-CO", {
   maximumFractionDigits: 0,
 });
 const productGrid = document.querySelector("#productGrid");
+const brandFilters = document.querySelector("#brandFilters");
+const catalogTotal = document.querySelector("#catalogTotal");
 const cartDrawer = document.querySelector("#cartDrawer");
 const drawerBackdrop = document.querySelector("#drawerBackdrop");
 const cartItems = document.querySelector("#cartItems");
@@ -74,6 +76,7 @@ const cartFooter = document.querySelector("#cartFooter");
 const checkoutDialog = document.querySelector("#checkoutDialog");
 const checkoutForm = document.querySelector("#checkoutForm");
 const paymentMethod = document.querySelector("#paymentMethod");
+const selectedBrands = new Set();
 
 function formatPrice(amount) {
   return currency.format(amount);
@@ -87,7 +90,20 @@ function getSubtotal() {
 }
 
 function renderProducts() {
-  productGrid.innerHTML = products
+  const visibleProducts =
+    selectedBrands.size === 0
+      ? products
+      : products.filter((product) => selectedBrands.has(product.brand));
+  catalogTotal.textContent = `${String(visibleProducts.length).padStart(2, "0")} ${
+    visibleProducts.length === 1 ? "MODELO" : "MODELOS"
+  }`;
+
+  if (visibleProducts.length === 0) {
+    productGrid.innerHTML = '<p class="catalog-empty">No encontramos equipos de estas marcas por ahora.</p>';
+    return;
+  }
+
+  productGrid.innerHTML = visibleProducts
     .map(
       (product) => `
         <article class="product-card">
@@ -150,6 +166,7 @@ function renderCart() {
   products.forEach((product) => {
     const stockLabel = document.querySelector(`[data-stock-label="${product.id}"]`);
     const addButton = document.querySelector(`[data-add-product="${product.id}"]`);
+    if (!stockLabel || !addButton) return;
     stockLabel.textContent = `${product.stock} ${product.stock === 1 ? "disponible" : "disponibles"}`;
     addButton.disabled = product.stock === 0;
     addButton.textContent = product.stock === 0 ? "Agotado" : "Agregar al carrito";
@@ -233,6 +250,30 @@ productGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-add-product]");
   if (!button || button.disabled) return;
   addProduct(button.dataset.addProduct);
+});
+
+brandFilters.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-brand-filter]");
+  if (!button) return;
+
+  const brand = button.dataset.brandFilter;
+  if (brand === "all") {
+    selectedBrands.clear();
+  } else if (selectedBrands.has(brand)) {
+    selectedBrands.delete(brand);
+  } else {
+    selectedBrands.add(brand);
+  }
+
+  brandFilters.querySelectorAll("[data-brand-filter]").forEach((filterButton) => {
+    const isActive =
+      filterButton.dataset.brandFilter === "all"
+        ? selectedBrands.size === 0
+        : selectedBrands.has(filterButton.dataset.brandFilter);
+    filterButton.classList.toggle("is-active", isActive);
+    filterButton.setAttribute("aria-pressed", String(isActive));
+  });
+  renderProducts();
 });
 
 cartItems.addEventListener("click", (event) => {

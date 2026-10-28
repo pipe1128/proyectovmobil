@@ -391,10 +391,57 @@ p {
   white-space: nowrap;
 }
 
+.brand-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.brand-filter {
+  min-height: 36px;
+  padding: 8px 14px;
+  border: 1px solid #e4e7ed;
+  border-radius: 20px;
+  background: white;
+  color: #555e6d;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.brand-filter:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.brand-filter.is-active {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: white;
+}
+
+.brand-filter:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
+}
+
+.catalog-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 34px 20px;
+  border: 1px dashed #d9dde5;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
 }
 
 .product-card {
@@ -630,6 +677,46 @@ p {
 
 .footer-inner p {
   margin: 0;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #fff;
+  font-weight: 700;
+  transition: color 160ms ease;
+}
+
+.social-icon {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.whatsapp-icon {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.4;
+}
+
+.whatsapp-icon path + path {
+  fill: currentColor;
+  stroke: none;
+}
+
+.instagram-icon-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  color: #aabaff;
 }
 
 .drawer-backdrop {
