@@ -16,6 +16,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="products.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
@@ -90,19 +91,11 @@
           <div>
             <span class="eyebrow">SELECCIÓN V'MOBIL</span>
             <h2>Encuentra tu próximo celular</h2>
-            <p>Equipos que combinan rendimiento, diseño y un precio que te gusta.</p>
+            <p>Consulta precios, existencias y características principales; filtra los equipos por marca.</p>
           </div>
           <span class="catalog-total" id="catalogTotal" aria-live="polite"></span>
         </div>
-        <div class="brand-filters" id="brandFilters" role="group" aria-label="Filtrar por marca; puedes elegir varias">
-          <button class="brand-filter is-active" type="button" data-brand-filter="all" aria-pressed="true">Todas</button>
-          <button class="brand-filter" type="button" data-brand-filter="Xiaomi" aria-pressed="false">Xiaomi</button>
-          <button class="brand-filter" type="button" data-brand-filter="Motorola" aria-pressed="false">Motorola</button>
-          <button class="brand-filter" type="button" data-brand-filter="Infinix" aria-pressed="false">Infinix</button>
-          <button class="brand-filter" type="button" data-brand-filter="Samsung" aria-pressed="false">Samsung</button>
-          <button class="brand-filter" type="button" data-brand-filter="Tecno" aria-pressed="false">Tecno</button>
-          <button class="brand-filter" type="button" data-brand-filter="Apple" aria-pressed="false">Apple</button>
-        </div>
+        <div class="brand-filters" id="brandFilters" role="group" aria-label="Filtrar por marca; puedes elegir varias"></div>
         <div class="product-grid" id="productGrid" aria-live="polite"></div>
       </section>
 

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+  <defs>
+    <linearGradient id="background" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#edf1ff" />
+      <stop offset="1" stop-color="#dce4ff" />
+    </linearGradient>
+    <linearGradient id="screen" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#5275f4" />
+      <stop offset="1" stop-color="#172b83" />
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-20%" width="160%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#25366d" flood-opacity=".2" />
+    </filter>
+  </defs>
+  <rect width="640" height="480" fill="url(#background)" />
+  <circle cx="505" cy="90" r="95" fill="#fff" opacity=".38" />
+  <circle cx="120" cy="400" r="130" fill="#fff" opacity=".34" />
+  <g filter="url(#shadow)" transform="rotate(-9 320 240)">
+    <rect x="235" y="58" width="170" height="364" rx="31" fill="#151b27" />
+    <rect x="245" y="70" width="150" height="340" rx="23" fill="url(#screen)" />
+    <path d="M259 315c37-49 61-28 91-78 16-27 28-37 45-42v215H259z" fill="#9eb1ff" opacity=".76" />
+    <path d="M245 261c33-25 46-22 75-58 20-25 40-30 75-33v240H245z" fill="#7993ff" opacity=".6" />
+    <rect x="294" y="79" width="52" height="9" rx="5" fill="#151b27" />
+    <circle cx="320" cy="393" r="5" fill="#e2e8ff" opacity=".8" />
+  </g>
+  <text x="320" y="454" fill="#50608d" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle" letter-spacing="2">V'MOBIL</text>
+</svg>

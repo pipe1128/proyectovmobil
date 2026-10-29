@@ -1,63 +1,184 @@
 const WHATSAPP_NUMBER = "573015379982"; // Reemplaza por el número real de la tienda, con indicativo y solo dígitos.
 
-const products = [
-  {
-    id: "iphone-15",
-    brand: "Apple",
-    name: "iPhone 15",
-    price: 3299000,
-    ram: "6 GB",
-    storage: "128 GB",
-    camera: "48 MP",
-    battery: "3.349 mAh",
-    stock: 4,
-    image:
-      "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=700&q=80",
-    imageAlt: "Teléfono inteligente Apple en color oscuro",
-  },
-  {
-    id: "galaxy-a55",
-    brand: "Samsung",
-    name: "Galaxy A55 5G",
-    price: 1799000,
-    ram: "8 GB",
-    storage: "256 GB",
-    camera: "50 MP",
-    battery: "5.000 mAh",
-    stock: 6,
-    image:
-      "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=700&q=80",
-    imageAlt: "Teléfono inteligente Samsung Galaxy",
-  },
-  {
-    id: "redmi-note-13",
-    brand: "Xiaomi",
-    name: "Redmi Note 13 Pro",
-    price: 1349000,
-    ram: "8 GB",
-    storage: "256 GB",
-    camera: "200 MP",
-    battery: "5.100 mAh",
-    stock: 5,
-    image:
-      "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=700&q=80",
-    imageAlt: "Teléfono inteligente moderno con cámara de alta resolución",
-  },
-  {
-    id: "moto-edge-50",
-    brand: "Motorola",
-    name: "Edge 50 Fusion",
-    price: 1699000,
-    ram: "8 GB",
-    storage: "256 GB",
-    camera: "50 MP",
-    battery: "5.000 mAh",
-    stock: 3,
-    image:
-      "https://images.unsplash.com/photo-1605236453806-6ff36851218e?auto=format&fit=crop&w=700&q=80",
-    imageAlt: "Teléfono inteligente moderno visto de frente",
-  },
-];
+const brandNames = {
+  APPLE: "Apple",
+  IPHONE: "Apple",
+  SAMSUNG: "Samsung",
+  XIAOMI: "Xiaomi",
+  XIOAMI: "Xiaomi",
+  POCO: "POCO",
+  MOTOROLA: "Motorola",
+  HONOR: "Honor",
+  INFINIX: "Infinix",
+  TECNO: "Tecno",
+  ZTE: "ZTE",
+  NOKIA: "Nokia",
+  NUBIA: "Nubia",
+  OPPO: "OPPO",
+  VIVO: "vivo",
+  REALME: "realme",
+  ONEPLUS: "OnePlus",
+  HUAWEI: "Huawei",
+  ITEL: "itel",
+  FLY: "Fly",
+  CORN: "Corn",
+  KRONO: "Krono",
+  SONY: "Sony",
+};
+
+function getProductBrand(name, sourceBrand) {
+  const normalizedName = name.toUpperCase();
+  const brandRules = [
+    [/^(IPHONE|APPLE)\b/, "Apple"],
+    [/^(SAMSUNG|SM [AS]\d+|GALAXY)\b/, "Samsung"],
+    [/^(REDMI|XIAOMI|XIOAMI|NOTE \d)/, "Xiaomi"],
+    [/^POCO\b/, "POCO"],
+    [/^(MOTOROLA|MOTO)\b/, "Motorola"],
+    [/^(HONOR|MAGIC )/, "Honor"],
+    [/^(INFINIX|INIFINIX|SMART 20)/, "Infinix"],
+    [/^(TECNO|SPARK|CAMON|PHANTOM|POP )/, "Tecno"],
+    [/^(ZTE|BLADE )/, "ZTE"],
+    [/^NOKIA\b/, "Nokia"],
+    [/^NUBIA\b/, "Nubia"],
+    [/^OPPO\b/, "OPPO"],
+    [/^VIVO\b/, "vivo"],
+    [/^REALME\b/, "realme"],
+    [/^ONEPLUS\b/, "OnePlus"],
+    [/^HUAWEI\b/, "Huawei"],
+    [/^ITEL\b/, "itel"],
+    [/^(GOOGLE PIXEL|PIXEL)\b/, "Google"],
+    [/^(FLY-|FLY |FY-)/, "Fly"],
+    [/^CORN\b/, "Corn"],
+    [/^FLECHA TIGER\b/, "Flecha Tiger"],
+    [/^KRONO NET\b/, "Krono"],
+    [/^SONY XPERIA\b/, "Sony"],
+  ];
+  const match = brandRules.find(([pattern]) => pattern.test(normalizedName));
+  if (match) return match[1];
+
+  const normalizedSourceBrand = sourceBrand.trim().toUpperCase();
+  const brand = brandNames[normalizedSourceBrand];
+  if (brand) return brand;
+  if (normalizedSourceBrand) return sourceBrand.trim();
+  throw new Error(`No se pudo identificar la marca del celular "${name}".`);
+}
+
+function formatProductName(value) {
+  return value
+    .toLocaleLowerCase("es-CO")
+    .replace(/(^|[\s-])([a-záéíóúñ])/g, (_, separator, letter) =>
+      separator + letter.toLocaleUpperCase("es-CO"),
+    )
+    .replace(/\bInifinix\b/gi, "Infinix")
+    .replace(/\bIphone\b/gi, "iPhone")
+    .replace(/\bPromax\b/gi, "Pro Max")
+    .replace(/\bUsadio\b/gi, "Usado")
+    .replace(/\b(\d+)gb\b/gi, "$1 GB")
+    .replace(/\b(\d+)ram\b/gi, "$1 GB RAM")
+    .replace(/\b(\d+)r\b/gi, "$1 GB RAM")
+    .replace(/\b5g\b/gi, "5G")
+    .replace(/\b4g\b/gi, "4G")
+    .replace(/\bSm\b/gi, "SM")
+    .replace(/\bZte\b/gi, "ZTE")
+    .replace(/\bPoco\b/gi, "POCO");
+}
+
+function getProductCondition(description) {
+  let condition = description.trim().replace(/\s+/g, " ").replace(/\s*,\s*/g, ", ");
+  const conditionPattern =
+    /\b(?:USADO|NUEVO|ACTIVO|BATER[IÍ]A|RAYA|RAYAS|RAYONES|RAYADO|VISOR|CARCAZA|CARCASA|PELADO|PELON|TALLONES)\b/i;
+  if (!conditionPattern.test(condition)) return "";
+
+  condition = condition
+    .replace(/\uFFFD/g, "Ñ")
+    .replace(/\bVISRO\b/gi, "VISOR")
+    .replace(/\bSI N RAYAS\b/gi, "SIN RAYAS")
+    .replace(/\bCARCAZA\b/gi, "CARCASA")
+    .replace(/\bPELON\b/gi, "PELADO")
+    .replace(/\bBATERIA\b/gi, "BATERÍA")
+    .toLocaleLowerCase("es-CO");
+  return condition.charAt(0).toLocaleUpperCase("es-CO") + condition.slice(1);
+}
+
+function getProductImage(brand, displayName) {
+  return {
+    image: "assets/celular-placeholder.svg",
+    imageAlt: `Imagen ilustrativa de un celular ${brand} ${displayName}`,
+  };
+}
+
+function buildProductCatalog(rows) {
+  const groupedProducts = new Map();
+
+  rows.forEach((row) => {
+    const name = row.name.trim();
+    const condition =
+      getProductCondition(row.description) ||
+      (/\bUSADO\b/i.test(name) ? "Usado" : /\bNUEVO\b/i.test(name) ? "Nuevo" : "");
+    const price = Number(row.price);
+    const quantity = Number(row.quantity);
+    if (!name || !Number.isFinite(price) || price <= 0 || !Number.isFinite(quantity)) {
+      throw new Error(`Registro de inventario inválido para "${name}".`);
+    }
+
+    const key = [name, price, condition].join("\u001f");
+    const existing = groupedProducts.get(key);
+    if (existing) {
+      existing.stock += quantity;
+      return;
+    }
+
+    const brand = getProductBrand(name, row.sourceBrand);
+    const displayName = formatProductName(name);
+    const productImage = getProductImage(brand, displayName);
+    const storageMatch = name.match(/(\d+)\s*GB\b/i);
+    const ramMatch = name.match(/(\d+)\s*(?:RAM|R)\b/i);
+    const networkMatch = name.match(/\b(5G|4G)\b/i);
+    const ram = ramMatch ? `${ramMatch[1]} GB` : null;
+    const storage = storageMatch ? `${storageMatch[1]} GB` : null;
+    const features = [];
+    if (ram) features.push(`${ram} de RAM`);
+    if (storage) features.push(`${storage} de almacenamiento`);
+
+    let description = features.length
+      ? `Con ${features.join(" y ")}`
+      : `Modelo ${displayName} de ${brand}`;
+    if (networkMatch) {
+      description += features.length
+        ? `; conectividad ${networkMatch[1].toUpperCase()}`
+        : ` con conectividad ${networkMatch[1].toUpperCase()}`;
+    }
+    if (condition) {
+      description += condition.length < 12 ? `; condición: ${condition}` : `; ${condition}`;
+    } else if (!features.length) {
+      description += "; especificaciones no detalladas en el inventario";
+    }
+
+    groupedProducts.set(key, {
+      id: "",
+      brand,
+      name: displayName,
+      price,
+      ram,
+      storage,
+      description: `${description}.`,
+      stock: quantity,
+      ...productImage,
+    });
+  });
+
+  return [...groupedProducts.values()]
+    .map((product) => ({ ...product, stock: Math.max(0, product.stock) }))
+    .filter((product) => product.stock > 0)
+    .sort((left, right) =>
+      left.brand.localeCompare(right.brand, "es") ||
+      left.name.localeCompare(right.name, "es") ||
+      left.price - right.price,
+    )
+    .map((product, index) => ({ ...product, id: `phone-${index + 1}` }));
+}
+
+const products = buildProductCatalog(inventoryRows);
 
 const cart = new Map();
 const currency = new Intl.NumberFormat("es-CO", {
@@ -78,8 +199,32 @@ const checkoutForm = document.querySelector("#checkoutForm");
 const paymentMethod = document.querySelector("#paymentMethod");
 const selectedBrands = new Set();
 
+document.addEventListener(
+  "error",
+  (event) => {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement) || image.dataset.imageFailed) return;
+    image.dataset.imageFailed = "true";
+    image.src = image.dataset.fallback || "assets/celular-placeholder.svg";
+  },
+  true,
+);
+
 function formatPrice(amount) {
   return currency.format(amount);
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => {
+    const entities = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    return entities[character];
+  });
 }
 
 function getSubtotal() {
@@ -95,7 +240,7 @@ function renderProducts() {
       ? products
       : products.filter((product) => selectedBrands.has(product.brand));
   catalogTotal.textContent = `${String(visibleProducts.length).padStart(2, "0")} ${
-    visibleProducts.length === 1 ? "MODELO" : "MODELOS"
+    visibleProducts.length === 1 ? "PRODUCTO" : "PRODUCTOS"
   }`;
 
   if (visibleProducts.length === 0) {
@@ -104,23 +249,33 @@ function renderProducts() {
   }
 
   productGrid.innerHTML = visibleProducts
-    .map(
-      (product) => `
+    .map((product) => {
+      const specs = [
+        ["RAM", product.ram],
+        ["Almacenamiento", product.storage],
+      ]
+        .filter(([, value]) => value)
+        .map(
+          ([label, value]) => `
+            <span class="spec"><strong>${label}</strong>${escapeHtml(value)}</span>
+          `,
+        )
+        .join("");
+
+      return `
         <article class="product-card">
           <div class="product-image-wrap">
-            <img src="${product.image}" alt="${product.imageAlt}" loading="lazy" />
-            <span class="stock-label" data-stock-label="${product.id}">${product.stock} disponibles</span>
+            <img src="${escapeHtml(product.image)}" data-fallback="assets/celular-placeholder.svg" alt="${escapeHtml(product.imageAlt)}" loading="lazy" />
+            <span class="stock-label" data-stock-label="${product.id}">${product.stock} ${
+              product.stock === 1 ? "disponible" : "disponibles"
+            }</span>
           </div>
           <div class="product-content">
-            <span class="product-brand">${product.brand}</span>
-            <h3>${product.name}</h3>
+            <span class="product-brand">${escapeHtml(product.brand)}</span>
+            <h3>${escapeHtml(product.name)}</h3>
             <p class="product-price">${formatPrice(product.price)}</p>
-            <div class="product-specs">
-              <span class="spec"><strong>RAM</strong>${product.ram}</span>
-              <span class="spec"><strong>Almacenamiento</strong>${product.storage}</span>
-              <span class="spec"><strong>Cámara</strong>${product.camera}</span>
-              <span class="spec"><strong>Batería</strong>${product.battery}</span>
-            </div>
+            <p class="product-description">${escapeHtml(product.description)}</p>
+            ${specs ? `<div class="product-specs">${specs}</div>` : ""}
             <button class="add-to-cart" type="button" data-add-product="${product.id}" ${
               product.stock === 0 ? "disabled" : ""
             }>
@@ -128,9 +283,28 @@ function renderProducts() {
             </button>
           </div>
         </article>
-      `,
-    )
+      `;
+    })
     .join("");
+}
+
+function renderBrandFilters() {
+  brandFilters.replaceChildren();
+
+  const createFilterButton = (label, brand, isActive) => {
+    const button = document.createElement("button");
+    button.className = `brand-filter${isActive ? " is-active" : ""}`;
+    button.type = "button";
+    button.dataset.brandFilter = brand;
+    button.setAttribute("aria-pressed", String(isActive));
+    button.textContent = label;
+    brandFilters.append(button);
+  };
+
+  createFilterButton("Todas", "all", selectedBrands.size === 0);
+  [...new Set(products.map((product) => product.brand))]
+    .sort((left, right) => left.localeCompare(right, "es"))
+    .forEach((brand) => createFilterButton(brand, brand, selectedBrands.has(brand)));
 }
 
 function renderCart() {
@@ -147,17 +321,17 @@ function renderCart() {
       const product = products.find((item) => item.id === productId);
       return `
         <article class="cart-item">
-          <img src="${product.image}" alt="" />
+          <img src="${escapeHtml(product.image)}" data-fallback="assets/celular-placeholder.svg" alt="" />
           <div>
-            <h3>${product.name}</h3>
+            <h3>${escapeHtml(product.name)}</h3>
             <p>${formatPrice(product.price * quantity)}</p>
-            <div class="quantity-controls" aria-label="Cantidad de ${product.name}">
+            <div class="quantity-controls" aria-label="Cantidad de ${escapeHtml(product.name)}">
               <button type="button" data-cart-action="decrease" data-product-id="${product.id}" aria-label="Quitar una unidad">−</button>
               <span>${quantity}</span>
               <button type="button" data-cart-action="increase" data-product-id="${product.id}" aria-label="Agregar una unidad">+</button>
             </div>
           </div>
-          <button class="remove-item" type="button" data-cart-action="remove" data-product-id="${product.id}" aria-label="Quitar ${product.name} del carrito">×</button>
+          <button class="remove-item" type="button" data-cart-action="remove" data-product-id="${product.id}" aria-label="Quitar ${escapeHtml(product.name)} del carrito">×</button>
         </article>
       `;
     })
@@ -364,5 +538,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.querySelector("#currentYear").textContent = new Date().getFullYear();
+renderBrandFilters();
 renderProducts();
 renderCart();
